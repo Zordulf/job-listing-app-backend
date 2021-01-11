@@ -69,6 +69,29 @@ router.get('/:id', (req, res) => {
     .catch(err => console.log(err))
 });
 
+// VIEW SEARCHED JOB
+
+router.get('/search/:position', async (req, res) => {
+  let query = {};
+
+  if (req.params.position !== undefined) {
+    query = {
+      position: new RegExp(req.params.position, 'i')
+    };
+  }
+
+  const jobList = await Job.find(query);
+   
+  if(!jobList)
+  {
+    res.status(500).json({
+      success: false
+    });
+  }else{
+    res.status(200).send(jobList);
+  }
+});
+
 // UPDATE JOB LISTING
 router.put('/:id', validate, (req, res) => {
   const jobId = req.params.id;
