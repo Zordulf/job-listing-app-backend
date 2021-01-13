@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const jobs = require('./routes/jobs');
+const users = require('./routes/users');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,6 +19,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/jobs', jobs);
+
+app.use('/api/jobs', users);
 
 mongoose.connect(dbConfig + dbName, {
   useNewUrlParser: true, 
